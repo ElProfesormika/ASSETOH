@@ -1590,3 +1590,46 @@ async function updateCultureData(itemIndex, newImage) {
         showNotification('Erreur lors de la sauvegarde', 'error');
     }
 }
+
+// Fonction pour le scroll smooth vers les sections
+function smoothScrollToSection(targetId) {
+    const targetSection = document.querySelector(targetId);
+    if (targetSection) {
+        const offsetTop = targetSection.offsetTop - 80; // Ajuster pour la navbar fixe
+        window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+        });
+        console.log(`Scrolling to ${targetId}`);
+        return true;
+    } else {
+        console.error(`Section ${targetId} not found`);
+        // Fallback : essayer de naviguer normalement
+        window.location.href = targetId;
+        return false;
+    }
+}
+
+// Initialiser les liens de navigation avec scroll smooth
+function initSmoothScroll() {
+    // Gérer tous les liens avec des ancres
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    anchorLinks.forEach(link => {
+        // Vérifier si l'event listener n'a pas déjà été ajouté
+        if (!link.hasAttribute('data-smooth-scroll-initialized')) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                smoothScrollToSection(targetId);
+            });
+            link.setAttribute('data-smooth-scroll-initialized', 'true');
+        }
+    });
+    
+    console.log('✅ Scroll smooth initialisé');
+}
+
+// Initialiser le scroll smooth au chargement
+document.addEventListener('DOMContentLoaded', function() {
+    initSmoothScroll();
+});
