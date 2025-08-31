@@ -1612,14 +1612,19 @@ function smoothScrollToSection(targetId) {
 
 // Initialiser les liens de navigation avec scroll smooth
 function initSmoothScroll() {
+    console.log('🔄 Initialisation du scroll smooth...');
+    
     // Gérer tous les liens avec des ancres
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    console.log(`📎 Trouvé ${anchorLinks.length} liens d'ancrage`);
+    
     anchorLinks.forEach(link => {
         // Vérifier si l'event listener n'a pas déjà été ajouté
         if (!link.hasAttribute('data-smooth-scroll-initialized')) {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
+                console.log(`🎯 Clic sur le lien vers ${targetId}`);
                 smoothScrollToSection(targetId);
             });
             link.setAttribute('data-smooth-scroll-initialized', 'true');
