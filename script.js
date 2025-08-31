@@ -1636,5 +1636,51 @@ function initSmoothScroll() {
 
 // Initialiser le scroll smooth au chargement
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 DOM chargé - Initialisation du scroll smooth...');
     initSmoothScroll();
+    
+    // Solution de fallback pour les boutons hero
+    const heroButtons = document.querySelectorAll('.hero-buttons a[href^="#"]');
+    heroButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            console.log(`🎯 Clic sur bouton hero vers ${targetId}`);
+            
+            // Essayer d'abord le scroll smooth
+            if (!smoothScrollToSection(targetId)) {
+                // Fallback : scroll simple
+                const target = document.querySelector(targetId);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    console.log(`📜 Fallback scroll vers ${targetId}`);
+                } else {
+                    console.error(`❌ Section ${targetId} non trouvée`);
+                }
+            }
+        });
+    });
+    
+    console.log('✅ Initialisation terminée');
+});
+
+// Solution de fallback immédiate
+window.addEventListener('load', function() {
+    console.log('🌐 Page complètement chargée');
+    
+    // Vérifier si les boutons hero existent et fonctionnent
+    const adhesionButton = document.querySelector('a[href="#adhesion"]');
+    const presentationButton = document.querySelector('a[href="#presentation"]');
+    
+    if (adhesionButton) {
+        console.log('✅ Bouton adhésion trouvé');
+    } else {
+        console.error('❌ Bouton adhésion non trouvé');
+    }
+    
+    if (presentationButton) {
+        console.log('✅ Bouton présentation trouvé');
+    } else {
+        console.error('❌ Bouton présentation non trouvé');
+    }
 });
