@@ -8,6 +8,21 @@ const EMAILJS_CONFIG = {
     }
 };
 
+// Fonction simple pour scroller vers une section
+function scrollToSection(sectionId) {
+    console.log(`🎯 Tentative de scroll vers ${sectionId}`);
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+        console.log(`✅ Scroll réussi vers ${sectionId}`);
+    } else {
+        console.error(`❌ Section ${sectionId} non trouvée`);
+    }
+}
+
 // Configuration Admin
 const ADMIN_CONFIG = {
     email: 'franceassetoh228@gmail.com',
@@ -925,6 +940,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Initialiser le menu hamburger
     initHamburgerMenu();
     
+    // Initialiser le scroll smooth
+    initSmoothScroll();
+    
     // Test des fonctionnalités après 2 secondes
     setTimeout(() => {
         console.log('🧪 Test des fonctionnalités...');
@@ -1593,19 +1611,22 @@ async function updateCultureData(itemIndex, newImage) {
 
 // Fonction pour le scroll smooth vers les sections
 function smoothScrollToSection(targetId) {
-    const targetSection = document.querySelector(targetId);
-    if (targetSection) {
-        const offsetTop = targetSection.offsetTop - 80; // Ajuster pour la navbar fixe
-        window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
-        });
-        console.log(`Scrolling to ${targetId}`);
-        return true;
-    } else {
-        console.error(`Section ${targetId} not found`);
-        // Fallback : essayer de naviguer normalement
-        window.location.href = targetId;
+    try {
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+            // Utiliser scrollIntoView qui est plus fiable
+            targetSection.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+            console.log(`✅ Scroll vers ${targetId} réussi`);
+            return true;
+        } else {
+            console.error(`❌ Section ${targetId} non trouvée`);
+            return false;
+        }
+    } catch (error) {
+        console.error(`❌ Erreur lors du scroll vers ${targetId}:`, error);
         return false;
     }
 }
@@ -1634,53 +1655,3 @@ function initSmoothScroll() {
     console.log('✅ Scroll smooth initialisé');
 }
 
-// Initialiser le scroll smooth au chargement
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 DOM chargé - Initialisation du scroll smooth...');
-    initSmoothScroll();
-    
-    // Solution de fallback pour les boutons hero
-    const heroButtons = document.querySelectorAll('.hero-buttons a[href^="#"]');
-    heroButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            console.log(`🎯 Clic sur bouton hero vers ${targetId}`);
-            
-            // Essayer d'abord le scroll smooth
-            if (!smoothScrollToSection(targetId)) {
-                // Fallback : scroll simple
-                const target = document.querySelector(targetId);
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    console.log(`📜 Fallback scroll vers ${targetId}`);
-                } else {
-                    console.error(`❌ Section ${targetId} non trouvée`);
-                }
-            }
-        });
-    });
-    
-    console.log('✅ Initialisation terminée');
-});
-
-// Solution de fallback immédiate
-window.addEventListener('load', function() {
-    console.log('🌐 Page complètement chargée');
-    
-    // Vérifier si les boutons hero existent et fonctionnent
-    const adhesionButton = document.querySelector('a[href="#adhesion"]');
-    const presentationButton = document.querySelector('a[href="#presentation"]');
-    
-    if (adhesionButton) {
-        console.log('✅ Bouton adhésion trouvé');
-    } else {
-        console.error('❌ Bouton adhésion non trouvé');
-    }
-    
-    if (presentationButton) {
-        console.log('✅ Bouton présentation trouvé');
-    } else {
-        console.error('❌ Bouton présentation non trouvé');
-    }
-});
