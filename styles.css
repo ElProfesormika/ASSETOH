@@ -1962,6 +1962,46 @@ small {
     display: block;
 }
 
+/* Styles pour les options WhatsApp */
+.whatsapp-options {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 2px solid var(--border-gray);
+    transition: var(--transition);
+    background: var(--white);
+}
+
+.radio-option:hover {
+    border-color: var(--togo-green);
+    background: rgba(0, 108, 58, 0.05);
+}
+
+.radio-option input[type="radio"] {
+    margin: 0;
+    width: auto;
+    accent-color: var(--togo-green);
+}
+
+.radio-option input[type="radio"]:checked + span {
+    color: var(--togo-green);
+    font-weight: 600;
+}
+
+.radio-option:has(input[type="radio"]:checked) {
+    border-color: var(--togo-green);
+    background: rgba(0, 108, 58, 0.1);
+}
+
 /* Amélioration de l'affichage des images */
 .membre-photo img,
 .culture-image img {
@@ -2278,6 +2318,17 @@ small {
     .modal .btn-primary {
         margin-top: 1rem;
         padding: 12px 16px;
+        font-size: 0.9rem;
+    }
+    
+    /* Options WhatsApp responsive sur mobile */
+    .whatsapp-options {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .radio-option {
+        padding: 0.8rem 1rem;
         font-size: 0.9rem;
     }
 }

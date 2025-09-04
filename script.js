@@ -195,10 +195,14 @@ function closeContactForm() {
 function submitAdhesionForm(event) {
     event.preventDefault();
     
+    // Récupérer la sélection WhatsApp
+    const whatsappGroup = document.querySelector('input[name="whatsappGroup"]:checked');
+    
     const formData = {
         name: document.getElementById('adhesionName').value,
         email: document.getElementById('adhesionEmail').value,
         phone: document.getElementById('adhesionPhone').value,
+        whatsappGroup: whatsappGroup ? whatsappGroup.value : 'non',
         nationality: document.getElementById('adhesionNationality').value,
         studies: document.getElementById('adhesionStudies').value,
         motivation: document.getElementById('adhesionMotivation').value,
@@ -1572,7 +1576,9 @@ function sendEmail(formType, formData) {
     const templateParams = {
         to_email: config.toEmail,
         subject: config.subject,
-        ...formData
+        ...formData,
+        // Formater la réponse WhatsApp pour l'email
+        whatsappGroupFormatted: formData.whatsappGroup === 'oui' ? 'Oui, souhaite rejoindre le groupe WhatsApp' : 'Non, ne souhaite pas rejoindre le groupe WhatsApp'
     };
     
     // Envoyer l'email via EmailJS
