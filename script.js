@@ -377,7 +377,7 @@ async function saveMember(type, photoData) {
     const formData = {
         id: Date.now(),
         name: document.getElementById('memberName').value,
-        post: document.getElementById('memberPost').value,
+        post: document.getElementById('memberPoste').value,
         photo: photoData,
         description: document.getElementById('memberDescription').value
     };
