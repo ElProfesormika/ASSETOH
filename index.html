@@ -211,23 +211,35 @@
             <!-- Bureau Exécutif -->
             <div class="conseil-section">
                 <h3 class="conseil-subtitle">Le Bureau Exécutif</h3>
-                <div class="membres-grid" id="bureau-executif">
-                    <!-- Les membres seront ajoutés dynamiquement -->
+                <div class="membres-placeholder" id="bureau-executif-placeholder">
+                    <div class="placeholder-content">
+                        <i class="fas fa-users"></i>
+                        <h3>Bureau Exécutif</h3>
+                        <p>Les membres du bureau exécutif seront affichés ici.</p>
+                    </div>
                 </div>
-                <button class="btn btn-primary admin-only" onclick="openMemberForm('bureau-executif')" style="display: none;">
-                    <i class="fas fa-plus"></i> Ajouter un Membre
-                </button>
+                <div class="membres-admin admin-only" style="display: none;">
+                    <button class="btn btn-primary" onclick="openMemberForm('bureau-executif')">
+                        <i class="fas fa-plus"></i> Ajouter un Membre du Bureau
+                    </button>
+                </div>
             </div>
 
             <!-- Les Conseillers -->
             <div class="conseil-section">
                 <h3 class="conseil-subtitle">Les Conseillers</h3>
-                <div class="membres-grid" id="conseillers">
-                    <!-- Les membres seront ajoutés dynamiquement -->
+                <div class="membres-placeholder" id="conseillers-placeholder">
+                    <div class="placeholder-content">
+                        <i class="fas fa-user-friends"></i>
+                        <h3>Conseillers</h3>
+                        <p>Les conseillers seront affichés ici.</p>
+                    </div>
                 </div>
-                <button class="btn btn-primary admin-only" onclick="openMemberForm('conseillers')" style="display: none;">
-                    <i class="fas fa-plus"></i> Ajouter un Membre
-                </button>
+                <div class="membres-admin admin-only" style="display: none;">
+                    <button class="btn btn-primary" onclick="openMemberForm('conseillers')">
+                        <i class="fas fa-plus"></i> Ajouter un Conseiller
+                    </button>
+                </div>
             </div>
         </div>
     </section>

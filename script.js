@@ -399,53 +399,75 @@ async function saveMember(type, photoData) {
 // Fonction pour afficher les membres
 function displayMembers() {
     // Afficher le bureau exécutif
-    const bureauContainer = document.getElementById('bureau-executif');
-    if (bureauContainer) {
-        let html = '';
-        members['bureau-executif'].forEach(member => {
-            html += `
-                <div class="membre-card" data-id="${member.id}" data-type="bureau-executif">
-                    ${member.photo ? `<img src="${member.photo}" alt="${member.name}" class="membre-photo">` : '<div class="membre-photo-placeholder"><i class="fas fa-user"></i></div>'}
-                    <div class="membre-info">
-                        <h4>${member.name}</h4>
-                        <p class="membre-poste">${member.post}</p>
-                        ${member.description ? `<p class="membre-description">${member.description}</p>` : ''}
-                    </div>
-                    <button class="delete-btn admin-only" onclick="deleteMember('bureau-executif', ${member.id})" title="Supprimer ce membre">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                    <button class="edit-btn admin-only" onclick="editMember('bureau-executif', ${member.id})" title="Modifier ce membre">
-                        <i class="fas fa-edit"></i>
-                    </button>
+    const bureauPlaceholder = document.getElementById('bureau-executif-placeholder');
+    if (bureauPlaceholder) {
+        if (members['bureau-executif'].length === 0) {
+            bureauPlaceholder.innerHTML = `
+                <div class="placeholder-content">
+                    <i class="fas fa-users"></i>
+                    <h3>Bureau Exécutif</h3>
+                    <p>Les membres du bureau exécutif seront affichés ici.</p>
                 </div>
             `;
-        });
-        bureauContainer.innerHTML = html;
+        } else {
+            let html = '<div class="membres-grid">';
+            members['bureau-executif'].forEach(member => {
+                html += `
+                    <div class="membre-card" data-id="${member.id}" data-type="bureau-executif">
+                        ${member.photo ? `<img src="${member.photo}" alt="${member.name}" class="membre-photo">` : '<div class="membre-photo-placeholder"><i class="fas fa-user"></i></div>'}
+                        <div class="membre-info">
+                            <h4>${member.name}</h4>
+                            <p class="membre-poste">${member.post}</p>
+                            ${member.description ? `<p class="membre-description">${member.description}</p>` : ''}
+                        </div>
+                        <button class="delete-btn admin-only" onclick="deleteMember('bureau-executif', ${member.id})" title="Supprimer ce membre">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button class="edit-btn admin-only" onclick="editMember('bureau-executif', ${member.id})" title="Modifier ce membre">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            bureauPlaceholder.innerHTML = html;
+        }
     }
     
     // Afficher les conseillers
-    const conseillersContainer = document.getElementById('conseillers');
-    if (conseillersContainer) {
-        let html = '';
-        members['conseillers'].forEach(member => {
-            html += `
-                <div class="membre-card" data-id="${member.id}" data-type="conseillers">
-                    ${member.photo ? `<img src="${member.photo}" alt="${member.name}" class="membre-photo">` : '<div class="membre-photo-placeholder"><i class="fas fa-user"></i></div>'}
-                    <div class="membre-info">
-                        <h4>${member.name}</h4>
-                        <p class="membre-poste">${member.post}</p>
-                        ${member.description ? `<p class="membre-description">${member.description}</p>` : ''}
-                    </div>
-                    <button class="delete-btn admin-only" onclick="deleteMember('conseillers', ${member.id})" title="Supprimer ce membre">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                    <button class="edit-btn admin-only" onclick="editMember('conseillers', ${member.id})" title="Modifier ce membre">
-                        <i class="fas fa-edit"></i>
-                    </button>
+    const conseillersPlaceholder = document.getElementById('conseillers-placeholder');
+    if (conseillersPlaceholder) {
+        if (members['conseillers'].length === 0) {
+            conseillersPlaceholder.innerHTML = `
+                <div class="placeholder-content">
+                    <i class="fas fa-user-friends"></i>
+                    <h3>Conseillers</h3>
+                    <p>Les conseillers seront affichés ici.</p>
                 </div>
             `;
-        });
-        conseillersContainer.innerHTML = html;
+        } else {
+            let html = '<div class="membres-grid">';
+            members['conseillers'].forEach(member => {
+                html += `
+                    <div class="membre-card" data-id="${member.id}" data-type="conseillers">
+                        ${member.photo ? `<img src="${member.photo}" alt="${member.name}" class="membre-photo">` : '<div class="membre-photo-placeholder"><i class="fas fa-user"></i></div>'}
+                        <div class="membre-info">
+                            <h4>${member.name}</h4>
+                            <p class="membre-poste">${member.post}</p>
+                            ${member.description ? `<p class="membre-description">${member.description}</p>` : ''}
+                        </div>
+                        <button class="delete-btn admin-only" onclick="deleteMember('conseillers', ${member.id})" title="Supprimer ce membre">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button class="edit-btn admin-only" onclick="editMember('conseillers', ${member.id})" title="Modifier ce membre">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            conseillersPlaceholder.innerHTML = html;
+        }
     }
 }
 
